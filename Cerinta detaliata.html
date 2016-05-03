@@ -1,0 +1,918 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>
+    Tema de casă 4 - Master Boot Record    [CS Open CourseWare]
+  </title>
+
+  <meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2015-12-22T22:15:55+0200">
+<meta name="keywords" content="programare,teme_2015,tema4_2015_ca">
+<link rel="search" type="application/opensearchdescription+xml" href="http://ocw.cs.pub.ro/courses/lib/exe/opensearch.php" title="CS Open CourseWare">
+<link rel="start" href="http://ocw.cs.pub.ro/courses/">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="http://ocw.cs.pub.ro/courses/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="http://ocw.cs.pub.ro/courses/feed.php?mode=list&amp;ns=programare:teme_2015">
+<link rel="alternate" type="text/html" title="Plain HTML" href="http://ocw.cs.pub.ro/courses/_export/xhtml/programare/teme_2015/tema4_2015_ca">
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema4_2015_ca">
+<link rel="stylesheet" type="text/css" href="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/css.css">
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:teme_2015';var JSINFO = {"id":"programare:teme_2015:tema4_2015_ca","namespace":"programare:teme_2015","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/js.php"></script>
+<script type="text/x-mathjax-config;executed=true">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/MathJax.js"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script><script src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/ga.js" type="text/javascript"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+
+  <link rel="shortcut icon" href="http://ocw.cs.pub.ro/courses/lib/tpl/arctic/images/favicon.ico">
+
+  
+<style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body>
+<div id="wrapper" class="show">
+  <div class="dokuwiki">
+
+    
+    <div class="stylehead">
+      <div class="header">
+        <div class="pagename">
+          <a href="http://ocw.cs.pub.ro/courses/programare/"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/sigla_pc.png" height="70"> </a>        </div>
+        <div class="logo">
+          <a style="color: #AAA !important;" href="http://ocw.cs.pub.ro/courses/">Open CourseWare</a>        </div>
+      </div>
+    
+       
+      <div class="breadcrumbs">
+              </div>
+      
+            </div>
+
+                  <div class="bar" id="bar__top">
+        <div class="bar-left">
+                  </div>
+        <div class="bar-right">
+          <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema4_2015_ca?do=recent" class="action recent" accesskey="r" rel="nofollow" title="Recent changes [R]">Recent changes</a><a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema4_2015_ca?do=login&amp;sectok=d4ef25b2e5ff47532dda81d28390e2c1" class="action login" rel="nofollow" title="Login">Login</a>        </div>
+    </div>
+        
+    
+    
+    
+              <div class="left_page">
+          
+<h4 id="tema_de_casa_4_-_master_boot_record">Tema de casă 4 - Master Boot Record</h4>
+<div class="level4">
+<hr>
+
+<p>
+<strong>Responsabili</strong>: Darius Neațu, Radu Vișan
+</p>
+
+<p>
+<strong>Deadline</strong>: 20.12.2015, ora 23:55
+</p>
+
+<p>
+<strong>Ultima modificare</strong>: 22.12.2015
+</p>
+
+<p>
+<strong>Publicare checker</strong>: 22.12.2015
+</p>
+
+</div>
+
+<h4 id="obiective">Obiective</h4>
+<div class="level4">
+<hr>
+
+<p>
+În urma realizării acestei teme, studentul va fi capabil să:
+</p>
+<ul>
+<li class="level1"><div class="li"> lucreze cu operații pe fișiere binare / text</div>
+</li>
+<li class="level1"><div class="li"> lucreze cu șiruri de caractere</div>
+</li>
+<li class="level1"><div class="li"> lucreze cu structuri</div>
+</li>
+<li class="level1"><div class="li"> lucreze modularizat, implementand funcții ajutătoare</div>
+</li>
+<li class="level1"><div class="li"> promoveze examenul cu notă mare</div>
+</li>
+</ul>
+
+</div>
+
+<h4 id="enuntul_temei">Enunțul temei</h4>
+<div class="level4">
+<hr>
+
+<p>
+Primul sector fizic de pe un hard-disk poartă numele de Master Boot 
+Record (MBR). Acest sector are 512 octeți  și conține informații foarte 
+importante despre modul cum este partiționat hard-disk-ul. Dacă acest 
+sector este suprascris sau șters toate informațiile de pe hard-disk se 
+șterg.
+</p>
+
+<p>
+În cadrul MBR se găsesc informații despre fiecare partiție de pe 
+hard-disk. Aceste informații sunt stocate într-o tabelă de partiții 
+primare care are doar patru intrări. Prin urmare MBR-ul poate reține 
+informații doar pentru 4 partiții primare. Una dintre aceste patru 
+partiții primare va fi marcată ca activă și de pe ea se va încerca 
+pornirea sistemului de operare.
+MBR-ul mai contine și  bootloader-ul – un mic program care pornește un 
+sistem de operare prezent pe computer.
+În figura următoare se poate vedea configurația unui MBR: 
+</p>
+
+<p>
+<a href="http://ocw.cs.pub.ro/courses/_detail/programare/teme_2015/mbr.jpg?id=programare%3Ateme_2015%3Atema4_2015_ca" class="media" title="programare:teme_2015:mbr.jpg"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/mbr.jpg" class="mediacenter" title="mbr.jpg" alt="mbr.jpg" height="300" width="400"></a>
+</p>
+
+<p>
+Pentru mai multe informații puteți consulta Wikipedia.
+</p>
+<hr>
+
+<p>
+Mbrel, student la Facultatea de Automatică și Calculatoare, seria CA, 
+s-a mutat recent în Codeland. După ce a implementat un alocator de 
+memorie, s-a dus să i-l arate lui Algorel, prietenul său. Algorel nu a 
+fost impresionat și a venit cu o nouă provocare pentru el: să îi repare 
+tabela de partiții de pe laptop. Mbrel consideră că tema este prea 
+ușoara pentru el și pentru că lucrează la un nou sistem de operare, după
+ ce a rescris kernelul Linux, așa că s-a gândit să vă propună această 
+temă spre rezolvare. Pe lângă nota 10 și mulțumiri, Mbrel vă oferă, în 
+cazul unei reușite, un pupic sau o strângere de mână (după preferințe).
+</p>
+
+</div>
+
+<h4 id="implementare">Implementare</h4>
+<div class="level4">
+<hr>
+
+<p>
+În implementarea temei vom considera un model simplificat al MBR,  
+întrucat unele informații nu sunt relevante pentru noi în acest moment. 
+Vom simula un sistem de fișiere de pe un hard-disk, considerat un fișier
+ binar din motive de simplitate. Partițiile existente sunt toate 
+primare, iar numărul lor poate fi mai mare decât patru. 
+</p>
+
+<p>
+Definim următoarele elemente:
+</p>
+<ol>
+<li class="level1"><div class="li"> MBR (Master Boot Record) <br>
+Păstrează funcționalitatea unui MBR real, dar va fi particularizat 
+pentru această temă. El va conține doar următoarele informații:</div>
+<ol>
+<li class="level2"><div class="li"> un int reprezentând numărul de partiții  existente</div>
+</li>
+<li class="level2"><div class="li"> o listă cu adresele de început 
+pentru fiecare partiție existentă. În  continuare ne vom referi la o 
+adresă ca fiind o poziție din fișierul binar pe care se lucrează. Prima 
+poziție din fișier este 0x00.</div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> Partiție <br>
+O partiție înglobează un sistem de fișiere și directoare, având o dimensiune specificată. <br>
+Conține în ordine următoarele informații:</div>
+<ol>
+<li class="level2"><div class="li"> header =  o succesiune de 20 bytes cu următoarea semnificație:</div>
+<ol>
+<li class="level3"><div class="li"> un int reprezentând lungimea numelui partiției</div>
+</li>
+<li class="level3"><div class="li"> 8 bytes reprezentând numele 
+partiției; prin convenție, numele partiției este de          forma 
+“/dev/sd?”, unde ? este un character alfanumeric</div>
+</li>
+<li class="level3"><div class="li"> un int reprezentând numărul maxim de directoare de pe partiție. Notăm acest număr cu MAXD.</div>
+</li>
+<li class="level3"><div class="li"> un int reprezentând numărul maxim de fișiere de pe partiție. Notăm acest număr cu MAXF.</div>
+</li>
+</ol>
+</li>
+<li class="level2"><div class="li"> exact MAXD directoare, fiecare având exact MAXF fișiere alocate (după regulile care vor fi prezentate în continuare)</div>
+</li>
+<li class="level2"><div class="li"> MAXF fișiere specifice partiției</div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> Director <br>
+Conține în ordine următoarele informații:</div>
+<ol>
+<li class="level2"><div class="li"> header = o succesiune de 12 bytes cu următoarea semnificație:</div>
+<ol>
+<li class="level3"><div class="li"> un int reprezentând lungimea numelui directorului</div>
+</li>
+<li class="level3"><div class="li"> 8 bytes reprezentând numele directorului</div>
+</li>
+</ol>
+</li>
+<li class="level2"><div class="li"> MAXF fișiere aparținând directorului curent. MAXF este cel specificat în header-ul partiției curente </div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> Fișier</div>
+<ol>
+<li class="level2"><div class="li"> Conține doar un header definit ca o 
+succesiune de 12 bytes cu următoarea semnificație: un int reprezentând 
+lungimea numelui fișierului și 8 bytes reprezentând numele fișierului.</div>
+</li>
+</ol>
+</li>
+</ol>
+
+<p>
+<strong> Observații </strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> Header-ul se regăsește în componența
+ fiecărui element. Pentru simplitate se consideră că header-ul începe cu
+ 12 bytes, din care 4 bytes reprezintă lungimea numelui. Următorii 8 
+bytes  sunt rezervați numelui. Dacă valoarea primului int este mai mică 
+decât 8, atunci se rezervă tot 8 bytes, completându-se cu zerouri (spre 
+dreapta).</div>
+</li>
+<li class="level1"><div class="li"> Un director inexistent este reprezentat pe hard-disk  ca un director existent, având toată informația setată pe 0.</div>
+</li>
+<li class="level1"><div class="li"> Un fișier inexistent este reprezentat pe hard-disk  ca un fișier existent, având toată informația setată pe 0.</div>
+</li>
+</ul>
+
+<p>
+Pentru a ilustra cele spuse anterior vom considera exemplul din Figura 1:
+</p>
+
+<p>
+<img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/dump-example.png" class="mediacenter" alt="" width="300">
+</p>
+
+<p>
+In figură am folosit următoarele convenții:
+</p>
+<ul>
+<li class="level1"><div class="li"> MBR = roșu</div>
+</li>
+<li class="level1"><div class="li"> Descrierea unei partiții = verde</div>
+</li>
+<li class="level1"><div class="li"> Descrierea unui director  = albastru</div>
+</li>
+<li class="level1"><div class="li"> Descrierea unui fișier = mov</div>
+</li>
+<li class="level1"><div class="li"> Indexul de start al liniilor, 
+respectiv indicii coloanelor = negru (acesta este doar pentru exemple, 
+fișierele de intrare nu vor conține aceste valori)</div>
+</li>
+</ul>
+
+<p>
+În exemplu, MBR conține două partiții: prima începe la poziția 0x0C în 
+fișier, iar cea   de-a doua partiție începe la poziția 0x44 (0x 
+semnifică baza 16; 44 în baza 16 înseamnă 68 în baza 10).
+</p>
+
+<p>
+Prima partiție are numele  “/dev/sda”, MAXD = 1, MAXF = 1 și conține:
+</p>
+<ul>
+<li class="level1"><div class="li"> directorul “/dev/sda/acs”</div>
+</li>
+<li class="level1"><div class="li"> fișierele “/dev/sda/acs/pl”, “/dev/sda/cmos4000”</div>
+</li>
+</ul>
+
+<p>
+Analog se definește și a doua partiție.
+</p>
+
+</div>
+
+<h4 id="cerinte">Cerințe</h4>
+<div class="level4">
+<hr>
+
+</div>
+
+<h5 id="task_1">Task 1</h5>
+<div class="level5">
+
+<p>
+<strong>Validare MBR - 30 puncte</strong>
+</p>
+
+<p>
+Dându-se un fișier de intrare cu o astfel de configurație se cere să se verifice corectitudinea valorilor din MBR.
+Un MBR este valid dacă adresele partițiilor menționate sunt corecte în cadrul fișierului.
+Dacă configurația este validă, atunci se vor afișa la stdout:
+</p>
+<ul>
+<li class="level1"><div class="li"> pe prima linie mesajul “SUCCES”</div>
+</li>
+<li class="level1"><div class="li"> pe următoarele linii tabela de partiții. Fiecare linie are urmatorul format:</div>
+<ul>
+<li class="level2"><div class="li"> “nume_partitie total_space used_space”. Valorile numerice afișate se exprima în bytes.</div>
+</li>
+<li class="level2"><div class="li"> total_space reprezintă numărul de 
+bytes alocați pe partiție pentru fișiere și directoare (acest număr nu 
+se modifică pentru o partiție dată)</div>
+</li>
+<li class="level2"><div class="li"> used_space reprezintă numărul de bytes alocați pentru directoarele și fișierele existente</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+În cazul în care nu este validă configurația se va afișa doar mesajul “INVALID”.
+</p>
+
+<p>
+<strong>Exemple</strong>:
+</p>
+
+<p>
+Pentru exemplul din Figura 1 se va  afișa următorul output:
+</p>
+<pre class="code">SUCCES
+/dev/sda 36 36
+/dev/sdb 60 12</pre>
+
+<p>
+<strong>Explicație</strong>:
+</p>
+
+<p>
+Prima parție are un total_space (egal cu occupied_space) de 36 bytes deoarece conține:
+</p>
+<ul>
+<li class="level1"><div class="li"> un fișier (care ocupă 12 bytes)</div>
+</li>
+<li class="level1"><div class="li"> un director cu un fișier în el (care ocupă 12+12 bytes). </div>
+</li>
+</ul>
+
+<p>
+A doua partiție contine doar un fișier, deci occupied_size este 12 
+bytes. Partiția mai are alocat spațiu pentru încă un fișier inexistent 
+(12 bytes) , precum și pentru un director cu 2 fișiere în el (12 + 2*12 =
+ 36 bytes).
+</p>
+
+<p>
+<img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/task1-wrong1.png" class="medialeft" alt="" width="300"> <img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/task1-wrong2.png" class="mediacenter" alt="" width="300">
+</p>
+
+<p>
+Exemple de fișiere invalide se regăsesc în Figura 2.
+</p>
+
+</div>
+
+<h5 id="task_2">Task 2</h5>
+<div class="level5">
+
+<p>
+<strong>Operații cu sistemul de fișiere - 30 de puncte</strong>
+</p>
+
+<p>
+Se va da un set de operații care trebuie să fie aplicat asupra sistemului de fișiere. 
+Se cere implementarea următoarelor operații:
+</p>
+<ul>
+<li class="level1"><div class="li"> CREATE_FILE &lt;path&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va crea fișierul specificat prin calea absolută &lt;path&gt;. 
+Întrucât un director are alocat un număr fix de sloturi pentru fișiere, 
+unele fiind goale (pline de 0), se va folosi primul slot liber din 
+directorul respectiv pentru a aloca noul fișier.
+</p>
+<ul>
+<li class="level1"><div class="li"> RENAME_FILE &lt;path&gt; &lt;newName&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va redenumi fișierul specificat prin calea absolută &lt;path&gt;.
+</p>
+<ul>
+<li class="level1"><div class="li"> DELETE_FILE &lt;path&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va șterge fișierul specificat prin calea absolută &lt;path&gt;.
+</p>
+<ul>
+<li class="level1"><div class="li"> CREATE_DIR &lt;path&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va crea directorul specificat prin calea absolută &lt;path&gt;. 
+Întrucât o partiție are alocat un număr fix de sloturi pentru 
+directoare, unele fiind goale (pline de 0), se va folosi primul slot 
+liber din partiția respectivă pentru a aloca noul director.
+</p>
+<ul>
+<li class="level1"><div class="li"> RENAME_DIR &lt;path&gt; &lt;newName&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va redenumi directorul specificat prin calea absolută &lt;path&gt;.
+</p>
+<ul>
+<li class="level1"><div class="li"> DELETE_DIR &lt;path&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va șterge directorul specificat prin calea absolută &lt;path&gt;.
+</p>
+<ul>
+<li class="level1"><div class="li"> PRINT &lt;path&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va afișa lista de fișiere conținute in directorul de la calea 
+absolută &lt;path&gt;. Se va afișa câte un element pe linie. În caz de 
+succes această operație nu va mai  afișa mesajul “SUCCES”, ci doar lista
+ de fișiere.
+</p>
+
+<p>
+O operație executată cu succes va afișa la stdout mesajul “SUCCES”, iar o
+  operație care nu se poate executa va afișa mesajul “INVALID”.
+</p>
+
+</div>
+
+<h5 id="task_3">Task 3</h5>
+<div class="level5">
+
+<p>
+<strong>Operații cu partiții – 30 puncte</strong>
+</p>
+
+<p>
+Într-un sistem real partițiile sunt dinamice, în sensul că pot suferi 
+modificări. Pentru a simula aceste functionalități se cere implementarea
+ următoarelor operații:
+</p>
+<ul>
+<li class="level1"><div class="li"> DELETE_PARTITION &lt;name&gt;</div>
+</li>
+</ul>
+
+<p>
+Se va șterge partiția dată prin nume. Atenție! Ștergerea presupune doar eliminarea partitiei din MBR.
+</p>
+<ul>
+<li class="level1"><div class="li"> CREATE_PARTITION &lt;name&gt;  &lt;MAXD&gt;  &lt;MAXF&gt;</div>
+</li>
+</ul>
+
+<p>
+Se parcurge hard-disk-ul în cautarea unei porțiuni de memorie continua 
+liberă și suficient  de mare pentru alocarea unui partiții. Dacă 
+operația reușeșeste (se creează partiția cu caracteristicile date), 
+atunci aceasta va afișa doar adresa de început a partiției create.
+</p>
+<ul>
+<li class="level1"><div class="li"> FORMAT_PARTITION &lt;name&gt;</div>
+</li>
+</ul>
+
+<p>
+Se initializează cu 0 toată zona de memorie corespunzătoare directoarelor și fișierelor de pe partiție.
+</p>
+
+<p>
+O operație executată cu succes va afișa la stdout mesajul “SUCCES”, iar o
+  operație care nu se poate executa va afișa mesajul “INVALID”.
+</p>
+
+</div>
+
+<h5 id="task_4_-_bonus">Task 4 - bonus</h5>
+<div class="level5">
+
+<p>
+<strong>Restore MBR – 20 puncte</strong>
+</p>
+
+<p>
+Există situații în care valorile din MBR pot fi alterate. Dorim să 
+refacem MBR  cu toate parțiile valide. Se cunoaște doar lista de 
+partiții (numele lor)  și  configurația hardk-disk-ului, se cere 
+afișarea MBR-ului corect.
+Un exemplu se regăsește în Figura 3.  
+</p>
+
+<p>
+<img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/bonus-example.png" class="mediacenter" alt="" width="300">
+</p>
+
+<p>
+Output-ul corespunzător este următorul:
+</p>
+<pre class="code">MBR_SIZE: 2
+PARTITIONS_OFFSET: 12 68</pre>
+
+</div>
+
+<h4 id="alte_precizari">Alte precizări</h4>
+<div class="level4">
+<hr>
+<ul>
+<li class="level1"><div class="li"> Pariul făcut de cei doi prieteni 
+implică și faptul că Mbrel s-a lăudat că poate face tema fără să 
+citească în memorie tot fișierul, deci NU este permisă reținerea 
+fișierului în memorie. Toate operațiile se vor face direct pe fișierul 
+binar. Nerespectarea acestei restricții duce la ANULAREA punctajului pe 
+temă.</div>
+</li>
+<li class="level1"><div class="li"> Fișierele de input se vor numi <em>mbr.bin</em> (în care se va găsi hard-disk-ul), respectiv <em>mbr.op</em> (fișierul cu operații). ATENȚIE! Pentru task-urile 1 și 4  se va folosi doar fișierul <em>mbr.bin</em>.</div>
+</li>
+<li class="level1"><div class="li"> Pentru evaluare programul vostru va 
+primi ca parametru în linia de comandă indicele task-ului care urmeaza a
+ fi evaluat pe testul respectiv (1, 2, 3 sau 4).</div>
+</li>
+<li class="level1"><div class="li"> Tema se va implementa în limbajul C.</div>
+</li>
+<li class="level1"><div class="li"> Fișierul de implementare a temei se va numi <em>mbr.c</em>.</div>
+</li>
+<li class="level1"><div class="li"> Fișierele temei trebuie OBLIGATORIU împachetate într-o arhiva de tip <em>.zip</em>, cu numele <em>Grupa_NumePrenume_Tema4.zip</em>. Această arhivă va conține:</div>
+<ul>
+<li class="level2"><div class="li"> Codul sursă al programului vostru.</div>
+</li>
+<li class="level2"><div class="li"> Un fişier <em>Makefile</em> care să conţină regulile <em>build</em> şi <em>clean</em>. Regula <em>build</em> va compila programul într-un executabil cu numele <em>mbr</em>. Regula <em>clean</em> va şterge executabilul şi eventual toate binarele intermediare (fişiere obiect) generate de voi.</div>
+</li>
+<li class="level2"><div class="li"> Un fişier <em>README</em> care să conţină explicații privitoare la modul de rezolvare.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Arhiva temei NU va conține fișiere binare.</div>
+</li>
+<li class="level1"><div class="li"> Arhiva va fi trimisă atât pe vmchecker cât și pe moodle.</div>
+</li>
+<li class="level1"><div class="li"> O temă care nu compilează nu va fi punctată.</div>
+</li>
+<li class="level1"><div class="li"> O temă care compilează dar care NU trece nici un test pe vmchecker nu va fi punctată.</div>
+</li>
+</ul>
+
+</div>
+
+<h4 id="notare">Notare</h4>
+<div class="level4">
+<hr>
+<ul>
+<li class="level1"><div class="li"> 90 de puncte pentru task-urile 1-3 rulate pe vmchecker.</div>
+</li>
+<li class="level1"><div class="li"> 10 puncte pentru README, coding style, comentarii în cod.</div>
+</li>
+<li class="level1"><div class="li"> 20 de puncte pentru task-ul bonus. Punctajul pe task-ul bonus se acordă DOAR dacă tema a fost rezolvată integral.</div>
+</li>
+</ul>
+
+</div>
+
+<h4 id="testare">Testare</h4>
+<div class="level4">
+<hr>
+
+<p>
+Arhiva de testare se gaseste <a href="http://ocw.cs.pub.ro/courses/_media/programare/teme_2015/mbr-checker.zip" class="urlextern" title="http://ocw.cs.pub.ro/courses/_media/programare/teme_2015/mbr-checker.zip" rel="nofollow">aici</a>.
+</p>
+
+</div>
+
+        </div>
+        <div class="right_sidebar">
+          <form action="/courses/start" accept-charset="utf-8" class="search" id="dw__search" method="get"><div class="no"><input name="do" value="search" type="hidden"><input id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" type="text"><input value="Search" class="button" title="Search" type="submit"><div style="display: none;" id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>          <div class="namespace_sidebar sidebar_box">
+
+<h2 class="sectionedit1" id="resurse_generale">Resurse generale</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/regulament" class="wikilink1" title="programare:regulament">Regulament</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/punctaj" class="wikilink1" title="programare:punctaj">Punctaj</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/catalog" class="wikilink1" title="programare:catalog">Catalog laborator</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/coding-style" class="wikilink1" title="programare:coding-style">Coding style</a> <br>
+</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "Resurse generale" [1-208] -->
+<h2 class="sectionedit2" id="cursuri">Cursuri</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT3 PLUGIN_INCLUDE_START "programare:cursuri" [0-] --><div class="plugin_include_content plugin_include__programare:cursuri">
+<div class="level2">
+
+<p>
+<a href="http://ocw.cs.pub.ro/courses/programare/cursuri/sylabus" class="wikilink1" title="programare:cursuri:sylabus">Continutul Tematic</a> <br>
+
+</p>
+
+</div>
+<!-- EDIT5 PLUGIN_INCLUDE_EDITBTN "programare:cursuri" [0-] --><!-- EDIT4 PLUGIN_INCLUDE_END "programare:cursuri" [0-] --></div>
+<div class="level2">
+
+</div>
+<!-- EDIT2 SECTION "Cursuri" [209-277] -->
+<h2 class="sectionedit6" id="laboratoare">Laboratoare</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT7 PLUGIN_INCLUDE_START "programare:laboratoare" [0-] --><div class="plugin_include_content plugin_include__programare:laboratoare">
+<div class="level2">
+
+<p>
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab01" class="wikilink1" title="programare:laboratoare:lab01">01. Unelte de programare</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab02" class="wikilink1" title="programare:laboratoare:lab02">02. Tipuri de date. Operatori.</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab03" class="wikilink1" title="programare:laboratoare:lab03">03. Instrucțiunile limbajului C</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab04" class="wikilink1" title="programare:laboratoare:lab04">04. Funcții</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab05" class="wikilink1" title="programare:laboratoare:lab05">05. Tablouri. Particularizare - vectori</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab06" class="wikilink1" title="programare:laboratoare:lab06">06. Matrice. Operații cu matrice</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab07" class="wikilink1" title="programare:laboratoare:lab07">07. Pointeri. Abordarea lucrului cu tablouri folosind pointeri</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab08" class="wikilink1" title="programare:laboratoare:lab08">08. Alocarea dinamică a memoriei. Aplicaţii folosind tablouri şi matrice</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab09" class="wikilink1" title="programare:laboratoare:lab09">09. Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab10" class="wikilink1" title="programare:laboratoare:lab10">10. Structuri. Uniuni. Aplicație: Matrice rare</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab11" class="wikilink1" title="programare:laboratoare:lab11">11. Operatii cu fişiere. Aplicaţii folosind fişiere.</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab12" class="wikilink1" title="programare:laboratoare:lab12">12. Parametrii liniei de comandă. Preprocesorul. Funcţii cu număr variabil de parametri</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab13" class="wikilink1" title="programare:laboratoare:lab13">13. Recapitulare</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab14" class="wikilink1" title="programare:laboratoare:lab14">14. Probleme diverse</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab12cb" class="wikilink1" title="programare:laboratoare:lab12cb">12.(CB) Laborator final</a> <br>
+
+<a href="http://ocw.cs.pub.ro/courses/programare/laboratoare/python" class="wikilink1" title="programare:laboratoare:python">Extra: python</a> <br>
+
+</p>
+
+</div>
+<!-- EDIT9 PLUGIN_INCLUDE_EDITBTN "programare:laboratoare" [0-] --><!-- EDIT8 PLUGIN_INCLUDE_END "programare:laboratoare" [0-] --></div>
+<div class="level2">
+
+</div>
+<!-- EDIT6 SECTION "Laboratoare" [278-355] -->
+<h2 class="sectionedit10" id="teme_de_casa_general">Teme de casa (general)</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/vmchecker" class="wikilink1" title="programare:vmchecker">Folosire vmchecker</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/regulament#reguli_de_trimitere_a_temelor" class="wikilink1" title="programare:regulament">Trimitere teme</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/teme/general" class="wikilink1" title="programare:teme:general"> Indicații generale</a> <br>
+</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT10 SECTION "Teme de casa (general)" [356-566] -->
+<h2 class="sectionedit11" id="teme_de_casaseria_ca_2015-2016">Teme de casă: seria CA (2015-2016)</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema1_2015_ca" class="wikilink1" title="programare:teme_2015:tema1_2015_ca">Tema 1</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema2_2015_ca" class="wikilink1" title="programare:teme_2015:tema2_2015_ca">Tema 2</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema3_2015_ca" class="wikilink1" title="programare:teme_2015:tema3_2015_ca">Tema 3</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema4_2015_ca" class="wikilink1" title="programare:teme_2015:tema4_2015_ca">Tema 4</a></span> <br>
+</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT11 SECTION "Teme de casă: seria CA (2015-2016)" [567-1532] -->
+<h2 class="sectionedit12" id="teme_de_casaseria_cb_cd_2015-2016">Teme de casă: seria CB+CD (2015-2016)</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema1_2015_cbd" class="wikilink1" title="programare:teme_2015:tema1_2015_cbd">Tema 1</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema2_2015_cbd" class="wikilink1" title="programare:teme_2015:tema2_2015_cbd">Tema 2</a> <br>
+</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema3_2015_cbd" class="wikilink1" title="programare:teme_2015:tema3_2015_cbd">Tema 3</a> <br>
+</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT12 SECTION "Teme de casă: seria CB+CD (2015-2016)" [1533-] -->
+</div>
+<div class="toc_sidebar sidebar_box">
+<!-- TOC START -->
+<div id="sb__right__dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#tema_de_casa_4_-_master_boot_record">Tema de casă 4 - Master Boot Record</a></div></li>
+<li class="level4"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level4"><div class="li"><a href="#enuntul_temei">Enunțul temei</a></div></li>
+<li class="level4"><div class="li"><a href="#implementare">Implementare</a></div></li>
+<li class="level4"><div class="li"><a href="#cerinte">Cerințe</a></div></li>
+<li class="level4"><div class="li"><a href="#alte_precizari">Alte precizări</a></div></li>
+<li class="level4"><div class="li"><a href="#notare">Notare</a></div></li>
+<li class="level4"><div class="li"><a href="#testare">Testare</a></div></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+</div>
+        </div>
+      
+    
+      <div class="stylefoot">
+        <div class="meta">
+          <div class="user">
+                    </div>
+          <div class="doc">
+          programare/teme_2015/tema4_2015_ca.txt · Last modified: 2015/12/22 22:15 by darius.neatu          </div>
+        </div>
+      </div>
+
+    <div class="clearer"></div>
+
+    
+                <div class="bar" id="bar__bottom">
+      <div class="bar-left">
+        <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema4_2015_ca?do=revisions" class="action revs" accesskey="o" rel="nofollow" title="Old revisions [O]">Old revisions</a>      </div>
+      <div class="bar-right">
+        <a href="http://ocw.cs.pub.ro/courses/programare/teme_2015/tema4_2015_ca?do=media&amp;ns=programare%3Ateme_2015" class="action media" rel="nofollow" title="Media Manager">Media Manager</a><a href="#dokuwiki__top" class="action top" accesskey="t" rel="nofollow" title="Back to top [T]">Back to top</a>      </div>
+    </div>
+    <div class="clearer"></div>
+            
+    <div class="footerinc" align="center">
+  <div class="license"><a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/cc-by-sa.png" alt="CC Attribution-Share Alike 3.0 Unported"></a></div>
+  <a target="_blank" href="http://www.chimeric.de/" title="www.chimeric.de"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/button-chimeric-de.png" alt="www.chimeric.de" height="15" border="0" width="80"></a>
+
+  <a target="_blank" href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/button-css.png" alt="Valid CSS" height="15" border="0" width="80"></a>
+
+  <a target="_blank" href="http://wiki.splitbrain.org/wiki:dokuwiki" title="Driven by DokuWiki"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/button-dw.png" alt="Driven by DokuWiki" height="15" border="0" width="80"></a>
+
+  <a target="_blank" href="http://www.firefox-browser.de/" title="do yourself a favour and use a real browser - get firefox"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/button-firefox.png" alt="do yourself a favour and use a real browser - get firefox!!" height="15" border="0" width="80"></a>
+  
+  <a target="_blank" href="http://ocw.cs.pub.ro/courses/feed.php" title="Recent changes RSS feed"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/button-rss.png" alt="Recent changes RSS feed" height="15" border="0" width="80"></a>
+
+  <a target="_blank" href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/button-xhtml.png" alt="Valid XHTML 1.0" height="15" border="0" width="80"></a>
+</div>
+
+  </div>
+</div>
+
+<div class="no"><img src="Tema%20de%20cas%C4%83%204%20-%20Master%20Boot%20Record%20%5BCS%20Open%20CourseWare%5D_files/indexer.gif" alt="" height="1" width="2"></div>
+
+
+</body></html>
