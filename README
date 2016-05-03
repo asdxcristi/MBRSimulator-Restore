@@ -1,0 +1,57 @@
+Bucur Ionut-Cristian,313CA
+
+Metoda de rezolvare a temei 4:
+
+Task1:
+Pentru a rezolva acest task m-am folosit de un for initial ce parcurge fisierul prin adresele partitiilor si verifica daca acestea(adresele) sunt valide(apartin fisierului),dupa care verificam daca numelor lor este de forma "/dev/sd",in caz contrar afisam INVALID.De asemenea am numarat numarul partiilor valide cu ajutorul unei variabile contor "ok".Daca acest "ok" este egal cu numarul de partitii atunci afisam mesajul "SUCCES" si mergem mai departe.
+Cu ajutorul inca unui for parcurgem din nou partitiile,salvam adresa partiei anterioare si parcurgem spatiul dintre acesta si cea curenta pentru a calcula cate foldere/fisiere exista,apoi afisam used_space si total space aflat printr-o formula matematica,scazand adresa partitiei curente din cea anterioara si inca 20 pt descrierea partitiei.De asemenea se afiseaza si numele paritiilor,incepand cu prima parcurgele a forului in care nu se calculeaza used sau total space,deoarece nu exista o partitie anterioara in acest caz.
+Pentru ultima partitie calculam cele de mai sus folosindu-ne de adresa de final a fisierului.
+
+Task2:
+Pentru a rezolva acest task am folosit acelasi sistem de verificat numarul taskului parsat din linia de comanta,ca in cazul tuturor celorlalte taskuri.
+
+-DELETE_FILE:
+Spargem argumuentul dat si anume path-ul in partitie,dupa care verificam daca ceea ce urmeaza este chiar numele fisierului sau folderul in care acesta se afla.In functie de acestea avem doua cazuri:1.fisierul se afla intr-un folder sau 2.fisierul e direct pe partitie.
+Parcurgem partitiile pana cand o intalnim pe cea din path dupa care urmam cazul 1. sau cazul 2.
+
+$caz1:in acest caz scotem numele fisierului si il cautam dupa ce cautam numele folderului aferent acestuia,dupa care marcam corespunzator stergerea acestuia
+
+$caz2:in acest caz cautam in functie de MAXF-ul partiei respective prin fisiere daca numele acestora este cel al fisierului de sters si marcam stergerea acestuia(punand 0 la lungimea numelui si peste numele acestuia)
+
+Afisam mesajul corespunzator in functie de contorul setat daca s-a gasit si sters fisierul sau nu.
+
+-DELETE_DIR:
+Spargem argumuentul dat si anume path-ul in partitie,dupa care verificam daca exista si folderul de sters in acesta sau nu.In caz afirmativ,cautam prin toate folderele dupa numele acestuia,cand il gasim,daca il gasim marcam lungimea numelui si numele sau cu 0.
+Afisam mesajul corespunzator in functie de contorul setat daca s-a gasit si sters folderul sau nu.
+
+-RENAME_DIR:
+Acelasi principiu ca la DELETE_DIR,dar aici in loc de marcat cu 0,scriem lungimea numelui nume al directorului,dupa care numele nou al acestuia.
+
+-RENAME_FILE:
+Acelasi principiu ca la DELETE_FILE,dar aici in loc de marcat cu 0,scriem lungimea numelui nume al fisierului,dupa care numele nou al acestuia.
+
+-PRINT:
+Spargem pathul,dupa care cautam partitia corespunzatoare,apoi folderul.Dupa care afisam toate fisierele din aceasta.In caz ca nu s-a gasit folderul sau nu exista in path,contorul face sa se afiseze mesajul INVALID.
+
+-CREATE_DIR:
+Spargem pathul,dupa care cautam partitia corespunzatoare,apoi cautam sa vedem daca exista deja folderul,daca nu exista,atunci daca gasim un loc aka lungimea numelui 0 introducem lungimea numelui si apoi numele acestuia.
+
+--CREATE_FILE:
+Spargem pathul,dupa care cautam partitia corespunzatoare,apoi folderul daca exista,daca nu cautam pe partie loc(acelasi principiu ca la DELETE_FILE),apoi cautam sa vedem daca exista deja fisierul,daca nu exista,atunci daca gasim un loc aka lungimea numelui 0 introducem lungimea numelui si apoi numele acestuia.
+Task3:
+-acelasi mecanism ca la taskul 2.
+
+-DELETE_PARTITION:
+Parcurgem partitiile pana cand o gasim pe cea buna,sarind peste spatiile goale din mbr.Cand o gasim actualizam numarul de partitii din mbr si stergem adresa acestia din mbr marcand-o cu zero.Afisam mesajele de reusita sau nu in functie de contor.
+
+-FORMAT_PARTITION:
+Parcurgem partitiile pana cand o gasim pe cea buna,marcam toata lungimea ei(dupa descriere, pana la urmatoarea partie) cu 0.Afisam mesajele de reusita sau nu in functie de contor.
+
+-CREATE_PARTITION:
+Parcurgem partiile si cautam daca nu cumva deja exista partitia,caz in care ne oprim si afisam mesajul corespunzator.Cautam daca avem loc sa introducem in mbr noua partitie,daca nu,nu oprim.Daca pana aici totul este ok,calculam spatiul disponibil pt locul/locurile unde am gasit loc in mbr,intre partitii,scazand din partia urmatoarea lungimea calculata a celei anterioare.In caz ca e destul loc,introducem partitia dorita cu cele aferente ei si afisam adresa sa de inceput.
+
+Bonus:
+Scoatem MBR_SIZE din fisier si il afisam,dupa care cautam numarul de aparitii al "/dev/sd" afisand numele complet al acestora
+
+
+
